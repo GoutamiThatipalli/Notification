@@ -14,7 +14,7 @@
       var ajaxData; 
       $(document).ready(function(){
          
-          	var url= 'http://localhost:8086/notifications/getAllNotifications';
+          	var url= 'http://localhost:8088/notifications/getAllNotifications';
               var x =$.ajax({
                   url: url,
                   crossOrigin: true,
@@ -95,7 +95,7 @@
     	    	} 
     		    $.ajax({
     		    	type: "POST",
-    		    	url: "http://localhost:8086/notifications/addNotification",
+    		    	url: "http://localhost:8088/notifications/addNotification",
     		        data: JSON.stringify(data),
     		        dataType: "json", 	
     		        crossOrigin: true,
@@ -111,7 +111,7 @@
         
          function deleteNotification(id){
         	    
-         	var url= 'http://localhost:8086/notifications/deleteNotification/'+id;
+         	var url= 'http://localhost:8088/notifications/deleteNotification/'+id;
              var x =$.ajax({
                  url: url,
                  crossOrigin: true,
