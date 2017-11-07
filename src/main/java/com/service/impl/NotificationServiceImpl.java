@@ -1,4 +1,5 @@
 package com.service.impl;
+
 import com.config.QuartzConfig;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
@@ -29,11 +30,11 @@ public class NotificationServiceImpl implements NotificationService {
 	@Autowired
 	QuartzConfig quartzConfig;
 
-	public int addNotification(NotificationDTO notify) throws SchedulerException, ParseException {		
+	public int addNotification(NotificationDTO notify) throws SchedulerException, ParseException {
 		notificationDao.addNotification(notify);
 		return SchedulerNotify(notify);
 	}
-	
+
 	private int SchedulerNotify(NotificationDTO notify) throws SchedulerException, ParseException {
 		String sDate1 = notify.getScheduleDate();
 		Date date1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(sDate1);
@@ -41,9 +42,12 @@ public class NotificationServiceImpl implements NotificationService {
 		TriggerBuilder<? extends Trigger> triggerBuilder = newTrigger().withSchedule(scheduleBuilder).startAt(date1);
 		Trigger trigger = triggerBuilder.build();
 		triggerBuilder.withIdentity("TestIdentity");
-		JobDetail job = JobBuilder.newJob(NotificationJob.class).withIdentity("ScheduleMail", "group1").usingJobData("id", notify.getId()).usingJobData("message", notify.getMessage()).usingJobData("notificationName", notify.getNotificationName()).usingJobData("emailId", notify.getEmailId()).build();
-		//Scheduler scheduler = new StdSchedulerFactory().getScheduler();
-		Scheduler scheduler =quartzConfig.quartzScheduler().getScheduler();
+		JobDetail job = JobBuilder.newJob(NotificationJob.class).withIdentity("ScheduleMail", "group1")
+				.usingJobData("id", notify.getId()).usingJobData("message", notify.getMessage())
+				.usingJobData("notificationSub", notify.getNotificationSub())
+				.usingJobData("emailId", notify.getEmailId()).build();
+		// Scheduler scheduler = new StdSchedulerFactory().getScheduler();
+		Scheduler scheduler = quartzConfig.quartzScheduler().getScheduler();
 		scheduler.clear();
 		scheduler.start();
 		scheduler.scheduleJob(job, trigger);
@@ -52,13 +56,20 @@ public class NotificationServiceImpl implements NotificationService {
 
 	@Override
 	public List<NotificationDTO> findAll() {
-		
+
 		return notificationDao.findAll();
 	}
 
 	@Override
 	public int deleteNotification(String id) {
-		// TODO Auto-generated method stub
+		Scheduler scheduler = quartzConfig.quartzScheduler().getScheduler();
+		try {
+			scheduler.clear();
+		} catch (SchedulerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return notificationDao.deleteNotification(id);
+		
 	}
 }

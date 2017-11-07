@@ -24,21 +24,21 @@ public class NotificationJob implements Job {
         JobDataMap dataMap = context.getJobDetail().getJobDataMap();
         String msg = dataMap.getString("message");
     	String mail=dataMap.getString("emailId");
-    	String name=dataMap.getString("notificationName");
+    	String sub=dataMap.getString("notificationSub");
         try {
-            sendEmail(mail,msg,name);
+            sendEmail(mail,msg,sub);
         } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.println("Hello Quartz!");
     }
 
-    private void sendEmail(String mail,String msg,String name) throws Exception {
+    private void sendEmail(String mail,String msg,String sub) throws Exception {
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
         helper.setTo(mail);
         helper.setText(msg);
-        helper.setSubject(name);
+        helper.setSubject(sub);
         sender.send(message);
     }
 

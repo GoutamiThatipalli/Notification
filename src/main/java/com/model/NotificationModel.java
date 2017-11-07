@@ -11,17 +11,19 @@ public class NotificationModel implements Serializable {
 	Date scheduleDate;
 	String emailId;
 	int scheduleNow;
+	String notificationSub;
+
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getNotification_name() {
+	public String getNotificationName() {
 		return notificationName;
 	}
-	public void setNotification_name(String notification_name) {
-		this.notificationName = notification_name;
+	public void setNotificationName(String notificationName) {
+		this.notificationName = notificationName;
 	}
 	public String getMessage() {
 		return message;
@@ -29,23 +31,23 @@ public class NotificationModel implements Serializable {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public Date getCreated_time() {
+	public Date getCreatedTime() {
 		return createdTime;
 	}
-	public void setCreated_time(Date created_time) {
-		this.createdTime = created_time;
+	public void setCreatedTime(Date createdTime) {
+		this.createdTime = createdTime;
 	}
-	public Date getSchedule_date() {
+	public Date getScheduleDate() {
 		return scheduleDate;
 	}
-	public void setSchedule_date(Date schedule_date) {
-		this.scheduleDate = schedule_date;
+	public void setScheduleDate(Date scheduleDate) {
+		this.scheduleDate = scheduleDate;
 	}
-	public String getEmail_id() {
+	public String getEmailId() {
 		return emailId;
 	}
-	public void setEmail_id(String email_id) {
-		this.emailId = email_id;
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
 	public int getScheduleNow() {
 		return scheduleNow;
@@ -56,11 +58,18 @@ public class NotificationModel implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	public String getNotificationSub() {
+		return notificationSub;
+	}
+	public void setNotificationSub(String notificationSub) {
+		this.notificationSub = notificationSub;
+	}
 	@Override
 	public String toString() {
-		return "NotificationModel [id=" + id + ", notification_name=" + notificationName + ", message=" + message
-				+ ", created_time=" + createdTime + ", schedule_date=" + scheduleDate + ", email_id=" + emailId
-				+ ", scheduleNow=" + scheduleNow + "]";
+		return "NotificationModel [id=" + id + ", notificationName=" + notificationName + ", message=" + message
+				+ ", createdTime=" + createdTime + ", scheduleDate=" + scheduleDate + ", emailId=" + emailId
+				+ ", scheduleNow=" + scheduleNow + ", notificationSub=" + notificationSub + "]";
 	}
+	
 	
 }

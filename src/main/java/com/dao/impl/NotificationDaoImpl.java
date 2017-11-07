@@ -23,7 +23,7 @@ public class NotificationDaoImpl implements NotificationDao {
 
 	public int addNotification(NotificationDTO notify) {
 
-		String query = "insert into schedule values(:id,:name,:message,:time,:date,:email,:scheduleNow)";
+		String query = "insert into schedule values(:id,:name,:message,:time,:date,:email,:scheduleNow,:subject)";
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", notify.getId());
@@ -33,6 +33,7 @@ public class NotificationDaoImpl implements NotificationDao {
 		map.put("date", notify.getScheduleDate());
 		map.put("email", notify.getEmailId());
 		map.put("scheduleNow", notify.getScheduleNow());
+		map.put("subject",notify.getNotificationSub());
 		return jdbcTemplate.update(query, map);
 	}
 

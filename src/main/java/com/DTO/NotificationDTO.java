@@ -8,6 +8,7 @@ public class NotificationDTO {
     String scheduleDate;
     String emailId;
     String scheduleNow;
+    String notificationSub;
 
     public String getId() {
         return id;
@@ -21,7 +22,15 @@ public class NotificationDTO {
         return notificationName;
     }
 
-    public void setNotificationName(String notificationName) {
+    public String getNotificationSub() {
+		return notificationSub;
+	}
+
+	public void setNotificationSub(String notificationSub) {
+		this.notificationSub = notificationSub;
+	}
+
+	public void setNotificationName(String notificationName) {
         this.notificationName = notificationName;
     }
 

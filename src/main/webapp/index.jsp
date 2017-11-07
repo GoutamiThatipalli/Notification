@@ -82,6 +82,7 @@
                 event.preventDefault();
               	var data={};
               	data.notificationName=$("#notificationName").val();
+              	data.notificationSub=$("#notificationSubject").val();
     	    	data.message=$("#message").val();
     	    	data.scheduleDate=$("#scheduleDate").val();
     	    	data.emailId=$("#emailId").val();
@@ -139,17 +140,25 @@
 	     
       <div id = "dialog-1" title = "Schedule Message">
       <form id="notifyForm">
+      
+      <div class="form-group row">
+         	<label class="col-sm-4 control-label">Notification name</label>
+            <div class="col-sm-8">
+            	<input type="text" name="name" id="notificationName" class="form-control">
+            </div>
+            </div>
       	<div class="form-group row">
          	<label class="col-sm-4 control-label">Email id</label>
             <div class="col-sm-8">
             	<input type="email" name="emailid" id="emailId" class="form-control" required>
             </div>
-         </div>     
+         </div> 
          <div class="form-group row">
-         	<label class="col-sm-4 control-label">Notification name</label>
+         	<label class="col-sm-4 control-label">Notification Subject</label>
             <div class="col-sm-8">
-            	<input type="text" name="name" id="notificationName" class="form-control">
-            </div>
+            	<input type="text" name="name" id="notificationSubject" class="form-control">
+            </div>    
+         
          </div>   
          <div class="form-group row">
          	<label class="col-sm-4 control-label">Message</label>
