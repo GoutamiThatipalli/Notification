@@ -10,10 +10,11 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+	  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
       <script>    
       var ajaxData; 
       $(document).ready(function(){
-         
           	var url= 'http://localhost:8088/notifications/getAllNotifications';
               var x =$.ajax({
                   url: url,
@@ -21,20 +22,21 @@
                   type: 'GET',
                   dataType: 'json',
                  accept: 'application/json'
-              }).done(function (data) {          	
+              }).done(function (data) {      
+                  	
               	ajaxData = data;
               	var str = '';
-              	str += '<table class="table table-bordered table-striped">';
+              	str += '<table id="exp" class="display" cellspacing="0" width="100%">';
               	str += '<thead><tr align=center class="active" >';
               	str += '<th>ID</th>';
               	str += '<th>NOTIFICATION NAME</th>';
               	str += '<th>MESSAGE</th>';
+              	str += '<th>NOTIFICATION SUBJECT</th>'
               	str += '<th>CREATED TIME</th>';
               	str += '<th>SCHEDULE DATE</th>';
               	str += '<th>EMAILID</th>';
-              	str += '<th colspan=2 >Events</th>'
+              	str += '<th>Events</th>'
               	str += '</tr></thead>';
-              	
               	str += '<tbody>';
               	$.each(data, function(i, obj){
   					var uid=obj.id;
@@ -43,6 +45,7 @@
               		str += '<td> <label class="formfield">'+obj.id+'</label> </td>'
               		str += '<td> <label class="formfield">'+obj.notificationName+'</label> </td>'
               		str += '<td> <label class="formfield">'+obj.message+'</label> </td>'
+              		str += '<td> <label class="formfield">'+obj.notificationSub+'</label> </td>'
               		str += '<td> <label class="formfield">'+obj.createdTime+'</label> </td>'
               		str += '<td> <label class="formfield">'+obj.scheduleDate+'</label> </td>'
               		str += '<td> <label class="formfield">'+obj.emailId+'</label> </td>'
@@ -52,8 +55,14 @@
               	});
               	str += '</tbody>';
               	str += '</table>';
-              	$('#tableDiv').html(str);
-              	 $( "#tableDiv tbody tr #deleteBtn" ).on( "click", function(e) {
+              	
+              $('#tableDiv').html(str);
+              $('#exp').DataTable( {
+                  "pagingType": "full_numbers"
+              } ); 
+              
+              
+              	$( "#tableDiv tbody tr #deleteBtn" ).on( "click", function(e) {
               		var targetElmt = e.target;
               		console.log($(targetElmt).data("id"));
               		if (confirm("Do you want to delete")){
@@ -129,7 +138,7 @@
 			    }); 
          	
          }
-         
+        
       </script>
    </head>
    
@@ -169,12 +178,11 @@
          <div class="form-group row">
          	<label class="col-sm-4 control-label">Schedule date and time</label>
             <div class="col-sm-8">
-            	<input type="datetime-local" name="date" id="scheduleDate" class="form-control" min="2017-11-06 12:27:00">
+            	<input type="datetime" name="date" id="scheduleDate" class="form-control" min="2017-11-06 12:27:00">
             </div>
          </div>       
          
          <div class="modal-footer">       
-         	<button type="Submit" class="btn btn-primary">Save</button>
          	<button type="Submit" class="btn btn-primary">Send</button>
          </div>
          </form>

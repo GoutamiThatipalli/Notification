@@ -18,6 +18,7 @@ public class NotifyRowMapper implements RowMapper<NotificationDTO> {
 		notify.setScheduleDate(rs.getString("scheduleDate"));
 		notify.setEmailId(rs.getString("emailId"));
 		notify.setScheduleNow(rs.getString("scheduleNow"));
+		notify.setNotificationSub(rs.getString("notificationSub"));
 		return notify;
 	}
 }
